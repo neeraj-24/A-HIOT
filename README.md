@@ -67,6 +67,7 @@ $ perl ext_final.pl descriptors.csv > Final_ML_ready_file.csv
 Now label the molecules 1 (inhibtors) and 0 (non-inhibitor) in Final_ML_ready_file.csv and make it ready for machine learning.
 
 - **Features calculation and data preprocessing for independent validation dataset**
+
 Collect all molecules and convert them into sdf format using Open Babel.
 Administer sdf files to PaDEL-Descriptor and calculate 1D and 2D features for independent validation dataset (ind_valid_set.csv). 
 Edit "**ext_validation.pl**" by adding all features in "**Final_ML_ready_file.csv**" and extract validation file as:
@@ -83,6 +84,7 @@ $ R
 Source(“RF_train.R”)
 ```
 ### The automated RF_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
+
 To find true positives (Identified hits) for internal training
 ```
 $ sh RF_prediction_training.sh
