@@ -83,14 +83,15 @@ $ perl sd_csv.pl refined_zeros_descriptors.csv > refined_zeros_and_sd_descriptor
 $ R
 Source(“RF_train.R”)
 ```
-### The automated RF_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
+The automated RF_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
 
 To find true positives (Identified hits) for internal training
 ```
 $ sh RF_prediction_training.sh
 ```
 And it produces "**Identified_hits_for_internal_training.txt**"
-### Application of predictive model for independent validation dataset
+ 
+Application of predictive model for independent validation dataset
 ```
 Source (“RF_valid.R”)
 $ sh RF_prediction_training.sh
