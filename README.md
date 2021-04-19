@@ -66,7 +66,7 @@ $ perl ext_final.pl descriptors.csv > Final_ML_ready_file.csv
 ```
 Now label the molecules 1 (inhibtors) and 0 (non-inhibitor) in Final_ML_ready_file.csv and make it ready for machine learning.
 
--**Features calculation and data preprocessing for independent validation dataset**
+- **Features calculation and data preprocessing for independent validation dataset**
 Collect all molecules and convert them into sdf format using Open Babel.
 Administer sdf files to PaDEL-Descriptor and calculate 1D and 2D features for independent validation dataset (ind_valid_set.csv). 
 Edit "**ext_validation.pl**" by adding all features in "**Final_ML_ready_file.csv**" and extract validation file as:
@@ -74,7 +74,7 @@ Edit "**ext_validation.pl**" by adding all features in "**Final_ML_ready_file.cs
 $ perl removal_of_zeros.pl descriptors.csv > refined_zeros_descriptors.csv
 $ perl sd_csv.pl refined_zeros_descriptors.csv > refined_zeros_and_sd_descriptors.csv
 ```
--**Machine learning (ML) models**
+- **Machine learning (ML) models**
 
 1. To train random forest (RF) model keep Final_ML_ready_file.csv file into a defined path and follow accordingly
 
@@ -100,7 +100,7 @@ And it produces "**Identified_hits_from_independent_set.txt**"
 $ R
 Source(“xgb_train.R”) 
 ```
-### the automated xgb_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
+#### the automated xgb_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
 #### Application of predictive model for independent validation dataset 
 
 
