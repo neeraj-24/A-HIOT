@@ -25,7 +25,7 @@ and SBVS).
  
 ## Steps
 ### Establishing chemical space
-- Features calculation and data preprocessing for training dataset
+- Features calculation and data preprocessing for training dataset.
 Collect all molecules and convert them into sdf format using Open Babel:
 
 ```
