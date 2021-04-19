@@ -25,7 +25,7 @@ and SBVS).
  
 ## Steps
 ### Establishing chemical space
-- Features calculation and data preprocessing for training dataset.
+- **Features calculation and data preprocessing for training dataset.**
 
 Collect all molecules and convert them into sdf format using Open Babel:
 
@@ -55,5 +55,54 @@ Data <- read.csv(file=” refined_zeros_and_sd_descriptors.csv”, header=T)
 	write.csv(my_corr, “/home/user/data_preprocessing/ refined_corr_descriptors.csv”,    row_names=TRUE)
 
 ```
+The correlation containing file processed as the descriptors with more than 0.90 values are removed to maintain data consistency as
+
+```
+$ perl corr.pl  refined_corr_descriptors.csv > corr_processed.csv
+```
+The descriptor names are copied from corr_processed.csv file and used as input in "**ext_final.pl**" to extract final file as initial:
+```
+$ perl ext_final.pl descriptors.csv > Final_ML_ready_file.csv
+```
+Now label the molecules 1 (inhibtors) and 0 (non-inhibitor) in Final_ML_ready_file.csv and make it ready for machine learning.
+
+-**Features calculation and data preprocessing for independent validation dataset**
+Collect all molecules and convert them into sdf format using Open Babel.
+Administer sdf files to PaDEL-Descriptor and calculate 1D and 2D features for independent validation dataset (ind_valid_set.csv). 
+Edit "**ext_validation.pl**" by adding all features in "**Final_ML_ready_file.csv**" and extract validation file as:
+```
+$ perl removal_of_zeros.pl descriptors.csv > refined_zeros_descriptors.csv
+$ perl sd_csv.pl refined_zeros_descriptors.csv > refined_zeros_and_sd_descriptors.csv
+```
+-**Machine learning (ML) models**
+
+1. To train random forest (RF) model keep Final_ML_ready_file.csv file into a defined path and follow accordingly
+
+```
+$ R
+Source(“RF_train.R”)
+```
+### The automated RF_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
+To find true positives (Identified hits) for internal training
+```
+$ sh RF_prediction_training.sh
+```
+And it produces "**Identified_hits_for_internal_training.txt**"
+### Application of predictive model for independent validation dataset
+```
+Source (“RF_valid.R”)
+$ sh RF_prediction_training.sh
+```
+And it produces "**Identified_hits_from_independent_set.txt**"
+
+2. To train extreme gradient boost (XGB) model keep "**Final_ML_ready_file.csv**"  file into a defined path and follow accordingly
+```
+$ R
+Source(“xgb_train.R”) 
+```
+### the automated xgb_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
+#### Application of predictive model for independent validation dataset 
+
+
 
 
