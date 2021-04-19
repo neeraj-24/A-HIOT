@@ -102,7 +102,7 @@ And it produces "**Identified_hits_from_independent_set.txt**"
 $ R
 Source(“xgb_train.R”) 
 ```
-The automated xgb_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
+The automated **xgb_train** script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
 
 Application of predictive model for independent validation dataset 
 ```
@@ -110,7 +110,7 @@ Source (xgb_valid.R”)
 ```
 3. To train deep neural networks/deep learning (DNNs/DL) model keep.
 
-Final_ML_ready_file.csv file into a defined path and follow accordingly
+"**Final_ML_ready_file.csv**" file into a defined path and follow accordingly
 ```
 $ R
 Source(“DL_train.R”)
@@ -123,7 +123,7 @@ To find true positives (Identified hits) for internal training
 ```
 $ sh DL_prediction_training.sh
 ```
-And it produces Identified_hits_for_internal_training.txt
+And it produces "**Identified_hits_for_internal_training.txt**"
 
 Application of predictive model for independent validation dataset
 
@@ -131,6 +131,6 @@ Application of predictive model for independent validation dataset
 Source (“DL_valid.R”)
 $ sh DL_prediction_training.sh
 ```
-And it produces Identified_hits_from_independent_set.txt
+And it produces "**Identified_hits_from_independent_set.txt**"
 
 
