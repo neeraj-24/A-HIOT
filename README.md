@@ -165,7 +165,7 @@ The identified hits further used as input for protein space phase.
 
 1. Collect and place all true positives, true negatives retrieved from stacked ensemble step and protein structure in common directory.
 2. Prepare protein and ligand molecules for docking simulation using AutoDock Tools as per (Forli, S., Huey, R., Pique, M. et al. Computational protein–ligand docking and virtual drug screening with the AutoDock suite. Nat Protoc 11, 905–919 (2016). https://doi.org/10.1038/nprot.2016.051 )
-3. Keep grid box configuration file, prepared ligand molecules and protein in same direction and set up automated protein-ligand docking using following shell script
+3. Keep grid box configuration file, prepared ligand molecules and protein in same directory (Docking script for vina) and set up automated protein-ligand docking using following shell script
 ```
 $ sh vina_screening.sh
 ```
@@ -179,10 +179,10 @@ $sh copy_receptor_str_to_each_directory.sh
 and generate complex for next analytic step using following shell script
 ```
 $ sh complex.sh
-# move complex files to two different directories (Dir_complex_1 and Dir_complex_2) employing following shell script
+# move complex files to two different directories (Complex files for fingerprint generation and PLIP run) employing following shell script
 $ sh copying_complex_to_common_directory.sh
 ```
-5. Go to Dir_complex_1 convert complex.pdb files into SMILES (smi) format employing shell script
+5. Go to Complex files for fingerprint generation convert complex.pdb files into SMILES (smi) format employing shell script
 ```
 $sh complex_pdb_to_pdb.sh
 $sh pdb_to_smi.sh 
@@ -190,7 +190,7 @@ Copy SMILES files to a common directory (smiles_complex) and calculate Klekota-R
 ```
 - **Deep neural network (DNNs/DL) for fingerprint based predictive model**
 
-To train DNNs/DL model keep DL_klekota.csv file into Dir_complex_1 and follow accordingly
+To train DNNs/DL model keep DL_klekota.csv file into Deep Learning for Complex structures and follow accordingly
 ```
 $ R
 source(“training_DL_klekota.R”) 
@@ -204,17 +204,17 @@ $ sh DL_FP_prediction_training.sh
 And it produces Optimized _hits_from_independent_set.txt
 ```
 - **Protein-ligand interaction profiling**
-1. Go to plip-master directory and execute following shell script editing one directories path containing complex files, and it will generate Protein-ligand interaction profiles for each protein ligand complex
+1. Go to plip-master directory and execute following shell script (within PLIP run) editing one directories path containing complex files, and it will generate Protein-ligand interaction profiles for each protein ligand complex
 ```
 $ sh plip_generation_running.sh 
 The shell script would generate different directory for each complex file.
 ```
-2. Move or copy PLIP report files into a common directory (Dir_complex_2/report_inter_complex) and rename report file for easy understanding  employing following shell script
+2. Move or copy PLIP report files into a common directory (PLIP Table generation) and rename report file for easy understanding employing following shell script
 ```
 $ sh copying_report_file_to_common_folder.sh
 $ sh renaming_report_file.sh
 ```
-3. To collect total number of interaction and convert them into table employing following shell script, the script executed within report_inter_complex directory
+3. To collect total number of interaction and convert them into table employing following shell script, the script executed within interaction table generation directory
 ```
 $ sh interaction_table.sh
 The interaction types and total numbers stored in TABLR_RESNR
