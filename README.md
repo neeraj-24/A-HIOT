@@ -10,16 +10,16 @@ and SBVS).
 
 ## Prerequisites
 1. The following standalone packages and tools are required:
-- PaDEL-Descriptor
-- Open Babel – An open chemical toolbox
-- Cavity
-- Pocket v3
-- AutoDock Tools
-- AutoDock Vina
-- Protein Ligand Interaction Profiler (PLIP)
-- PyMOL
-- R v3.6 or above
-- H2o package in R for Artificial Intelligence 
+- PaDEL-Descriptor (http://www.yapcwsoft.com/dd/padeldescriptor/)
+- Open Babel – An open chemical toolbox (http://openbabel.org/wiki/Main_Page)
+- Cavity (http://mdl.ipc.pku.edu.cn/mdlweb/download-cn.php)
+- Pocket v3 (http://mdl.ipc.pku.edu.cn/mdlweb/download-cn.php)
+- AutoDock Tools (http://mgltools.scripps.edu/downloads)
+- AutoDock Vina (http://vina.scripps.edu/download.html)
+- Protein Ligand Interaction Profiler (PLIP) (https://github.com/pharmai/plip)
+- PyMOL (https://pymol.org/2/)
+- R v3.6 or above (https://www.r-project.org/)
+- H2o package in R for Artificial Intelligence (https://h2o-release.s3.amazonaws.com/h2o/rel-zipf/1/index.html)
  
 2. The second requirement is selection of a specific or set of similar receptor structures belongs to the same family and well established/profiled inhibitors or modulators for respective protein.
  
