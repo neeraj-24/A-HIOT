@@ -134,4 +134,96 @@ $ sh DL_prediction_training.sh
 ```
 And it produces "**Identified_hits_from_independent_set.txt**"
 
+- Stacked ensemble model
+
+To train stacked ensemble model keep Final_ML_ready_file.csv file into a defined path and follow accordingly
+```
+$ R
+Source(“ensemble_train.R”) 
+```
+The automated ensemble_train script produces AUC-ROC plot and confusion matrices for train and test dataset along with performance of each base-learner and super-learner algorithms. 
+To find true positives (Identified hits) for internal training
+
+```
+$ sh ENS_prediction_training.sh
+
+```
+And it produces "**Identified_hits_for_internal_training.txt**".
+Application of predictive model for independent validation dataset 
+
+```
+Source (“ensemble_valid.R”)
+$ sh ENS_prediction_training.sh
+
+```
+And it produces "**Identified_hits_from_independent_set.txt**"
+The identified hits further used as input for protein space phase.
+
+### Establishing protein space
+- Molecular docking and complex generation
+
+1. Collect and place all true positives, true negatives retrieved from stacked ensemble step and protein structure in common directory.
+2. Prepare protein and ligand molecules for docking simulation using AutoDock Tools as per (Forli, S., Huey, R., Pique, M. et al. Computational protein–ligand docking and virtual drug screening with the AutoDock suite. Nat Protoc 11, 905–919 (2016). https://doi.org/10.1038/nprot.2016.051 )
+3. Keep grid box configuration file, prepared ligand molecules and protein in same direction and set up automated protein-ligand docking using following shell script
+```
+$ sh vina_screening.sh
+```
+Autodock vina produce docked ligand along with nine conformations within binding pocket.
+4. Extract first conformation that has been docked within receptor protein and move it into new directory named as per molecules name using given shell script
+```
+$sh output_pdbqt_to_pdb.sh 
+copy protein structure to each directory using
+$sh copy_receptor_str_to_each_directory.sh
+```
+and generate complex for next analytic step using following shell script
+```
+$ sh complex.sh
+# move complex files to two different directories (Dir_complex_1 and Dir_complex_2) employing following shell script
+$ sh copying_complex_to_common_directory.sh
+```
+5. Go to Dir_complex_1 convert complex.pdb files into SMILES (smi) format employing shell script
+```
+$sh pdb_to_smi.sh 
+Copy SMILES files to a common directory (smiles_complex) and calculate Klekota-Roth binary fingerprint counts employing PaDEL and save fingerprint file into DL_klekota.csv.
+```
+- Deep neural network (DNNs/DL) for fingerprint based predictive model
+To train DNNs/DL model keep DL_klekota.csv file into Dir_complex_1 and follow accordingly
+```
+$ R
+Source(“training_DL_klekota.R”) 
+The automated training_DL_klekota.R script produces AUC-ROC plot and confusion matrices for train and test dataset.
+To find true positives (Identified hits) for internal training
+$ sh DL_FP_prediction_training.sh
+And it produces Optimized_hits_for_internal_training.txt
+Application of predictive model for independent validation dataset 
+Source (“validation_DL_klekota.R”)
+$ sh DL_FP_prediction_training.sh
+And it produces Optimized _hits_from_independent_set.txt
+```
+- Protein-ligand interaction profiling
+1. Go to plip-master directory and execute following shell script editing one directories path containing complex files, and it will generate Protein-ligand interaction profiles for each protein ligand complex
+```
+$ sh plip_generation_running.sh 
+The shell script would generate different directory for each complex file.
+```
+2. Move or copy PLIP report files into a common directory (Dir_complex_2/report_inter_complex) and rename report file for easy understanding  employing following shell script
+```
+$ sh copying_report_file_to_common_folder.sh
+$ sh renaming_report_file.sh
+```
+3. To collect total number of interaction and convert them into table employing following shell script, the script executed within report_inter_complex directory
+```
+$ sh interaction_table.sh
+The interaction types and total numbers stored in TABLR_RESNR
+```
+- Final selection of optimized hits
+```
+Copy TABLR_RESNR to Dir_complex_1 and to select final optimized hits employ following shell script
+$ sh final_selection_of_optimized_hits.sh
+```
+
+
+
+
+
 
