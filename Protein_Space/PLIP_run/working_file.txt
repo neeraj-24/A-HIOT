@@ -1,0 +1,1 @@
+Copy this shell script in tp the plip-master directory and edit path where you want PLIP results and execute it in plip-master directoryplip-master directory
