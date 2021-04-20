@@ -188,7 +188,7 @@ $sh pdb_to_smi.sh
 Copy SMILES files to a common directory (smiles_complex) and calculate Klekota-Roth binary fingerprint counts employing PaDEL and save fingerprint file into DL_klekota.csv.
 ```
 - **Deep neural network (DNNs/DL) for fingerprint based predictive model**
-- 
+
 To train DNNs/DL model keep DL_klekota.csv file into Dir_complex_1 and follow accordingly
 ```
 $ R
