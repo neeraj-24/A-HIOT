@@ -184,6 +184,7 @@ $ sh copying_complex_to_common_directory.sh
 ```
 5. Go to Dir_complex_1 convert complex.pdb files into SMILES (smi) format employing shell script
 ```
+$sh complex_pdb_to_pdb.sh
 $sh pdb_to_smi.sh 
 Copy SMILES files to a common directory (smiles_complex) and calculate Klekota-Roth binary fingerprint counts employing PaDEL and save fingerprint file into DL_klekota.csv.
 ```
