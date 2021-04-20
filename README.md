@@ -30,7 +30,7 @@ and SBVS).
 Collect all molecules and convert them into sdf format using Open Babel:
 
 ```
-$ Sh mol_to_sdf.sh
+$ sh mol_to_sdf.sh
 
 And move all the sdf files into a single directory.
 
@@ -81,7 +81,7 @@ $ perl sd_csv.pl refined_zeros_descriptors.csv > refined_zeros_and_sd_descriptor
 
 ```
 $ R
-Source(“RF_train.R”)
+source(“RF_train.R”)
 ```
 The automated RF_train script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
 
@@ -93,7 +93,7 @@ And it produces "**Identified_hits_for_internal_training.txt**"
  
 Application of predictive model for independent validation dataset
 ```
-Source (“RF_valid.R”)
+source (“RF_valid.R”)
 $ sh RF_prediction_training.sh
 ```
 And it produces "**Identified_hits_from_independent_set.txt**"
@@ -101,20 +101,20 @@ And it produces "**Identified_hits_from_independent_set.txt**"
 2. To train extreme gradient boost (XGB) model keep "**Final_ML_ready_file.csv**"  file into a defined path and follow accordingly
 ```
 $ R
-Source(“xgb_train.R”) 
+source(“xgb_train.R”) 
 ```
 The automated **xgb_train** script produce AUC-ROC plot and confusion matrices for train and test dataset and top 30 features.
 
 Application of predictive model for independent validation dataset 
 ```
-Source (xgb_valid.R”)
+source (xgb_valid.R”)
 ```
 3. To train deep neural networks/deep learning (DNNs/DL) model keep.
 
 "**Final_ML_ready_file.csv**" file into a defined path and follow accordingly
 ```
 $ R
-Source(“DL_train.R”)
+source(“DL_train.R”)
 ```
 The automated DL_train script produce AUC-ROC plot and confusion
 
@@ -129,7 +129,7 @@ And it produces "**Identified_hits_for_internal_training.txt**"
 Application of predictive model for independent validation dataset
 
 ```
-Source (“DL_valid.R”)
+source (“DL_valid.R”)
 $ sh DL_prediction_training.sh
 ```
 And it produces "**Identified_hits_from_independent_set.txt**"
@@ -139,7 +139,7 @@ And it produces "**Identified_hits_from_independent_set.txt**"
 To train stacked ensemble model keep Final_ML_ready_file.csv file into a defined path and follow accordingly
 ```
 $ R
-Source(“ensemble_train.R”) 
+source(“ensemble_train.R”) 
 ```
 The automated ensemble_train script produces AUC-ROC plot and confusion matrices for train and test dataset along with performance of each base-learner and super-learner algorithms. 
 To find true positives (Identified hits) for internal training
@@ -152,7 +152,7 @@ And it produces "**Identified_hits_for_internal_training.txt**".
 Application of predictive model for independent validation dataset 
 
 ```
-Source (“ensemble_valid.R”)
+source (“ensemble_valid.R”)
 $ sh ENS_prediction_training.sh
 
 ```
@@ -192,13 +192,13 @@ Copy SMILES files to a common directory (smiles_complex) and calculate Klekota-R
 To train DNNs/DL model keep DL_klekota.csv file into Dir_complex_1 and follow accordingly
 ```
 $ R
-Source(“training_DL_klekota.R”) 
+source(“training_DL_klekota.R”) 
 The automated training_DL_klekota.R script produces AUC-ROC plot and confusion matrices for train and test dataset.
 To find true positives (Identified hits) for internal training
 $ sh DL_FP_prediction_training.sh
 And it produces Optimized_hits_for_internal_training.txt
 Application of predictive model for independent validation dataset 
-Source (“validation_DL_klekota.R”)
+source (“validation_DL_klekota.R”)
 $ sh DL_FP_prediction_training.sh
 And it produces Optimized _hits_from_independent_set.txt
 ```
