@@ -134,7 +134,7 @@ $ sh DL_prediction_training.sh
 ```
 And it produces "**Identified_hits_from_independent_set.txt**"
 
-- Stacked ensemble model
+- **Stacked ensemble model**
 
 To train stacked ensemble model keep Final_ML_ready_file.csv file into a defined path and follow accordingly
 ```
@@ -160,7 +160,8 @@ And it produces "**Identified_hits_from_independent_set.txt**"
 The identified hits further used as input for protein space phase.
 
 ### Establishing protein space
-- Molecular docking and complex generation
+
+- **Molecular docking and complex generation**
 
 1. Collect and place all true positives, true negatives retrieved from stacked ensemble step and protein structure in common directory.
 2. Prepare protein and ligand molecules for docking simulation using AutoDock Tools as per (Forli, S., Huey, R., Pique, M. et al. Computational protein–ligand docking and virtual drug screening with the AutoDock suite. Nat Protoc 11, 905–919 (2016). https://doi.org/10.1038/nprot.2016.051 )
@@ -186,7 +187,8 @@ $ sh copying_complex_to_common_directory.sh
 $sh pdb_to_smi.sh 
 Copy SMILES files to a common directory (smiles_complex) and calculate Klekota-Roth binary fingerprint counts employing PaDEL and save fingerprint file into DL_klekota.csv.
 ```
-- Deep neural network (DNNs/DL) for fingerprint based predictive model
+- **Deep neural network (DNNs/DL) for fingerprint based predictive model**
+- 
 To train DNNs/DL model keep DL_klekota.csv file into Dir_complex_1 and follow accordingly
 ```
 $ R
@@ -200,7 +202,7 @@ Source (“validation_DL_klekota.R”)
 $ sh DL_FP_prediction_training.sh
 And it produces Optimized _hits_from_independent_set.txt
 ```
-- Protein-ligand interaction profiling
+- **Protein-ligand interaction profiling**
 1. Go to plip-master directory and execute following shell script editing one directories path containing complex files, and it will generate Protein-ligand interaction profiles for each protein ligand complex
 ```
 $ sh plip_generation_running.sh 
@@ -216,7 +218,7 @@ $ sh renaming_report_file.sh
 $ sh interaction_table.sh
 The interaction types and total numbers stored in TABLR_RESNR
 ```
-- Final selection of optimized hits
+- **Final selection of optimized hits**
 ```
 Copy TABLR_RESNR to Dir_complex_1 and to select final optimized hits employ following shell script
 $ sh final_selection_of_optimized_hits.sh
