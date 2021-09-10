@@ -12,7 +12,7 @@ test <- as.data.frame(data[-ind, ])
 str(train)
 var_names <- names(data)
 formula = as.formula(paste("y ~",  paste(var_names[!var_names %in% "y"], collapse = " + ")))
-rf_train_model <- randomForest(formula, data = train,  ntree = 5000, mtry = 50, nodesize = 10, importance=T)
+rf_train_model <- randomForest(formula, data = train,  ntree = 1500, mtry = 50, nodesize = 10, importance=T)
 print(rf_train_model)
 
 #Plotting training model
