@@ -15,7 +15,7 @@ var_names_train <- names(train)
 formula_train = as.formula(paste("y ~",  paste(var_names_train[!var_names_train %in% "y"], collapse = " + ")))
 var_names_test <- names(test)
 formula_test = as.formula(paste("y ~",  paste(var_names_test[!var_names_test %in% "y"], collapse = " + ")))
-rf_train_model <- randomForest(formula_train, data = train,  ntree = 5000, mtry = 50, nodesize = 10, importance=T)
+rf_train_model <- randomForest(formula_train, data = train,  ntree = 1500, mtry = 50, nodesize = 10, importance=T)
 
 #Plotting training model
 jpeg('RF_validation_training_performance.jpg')
