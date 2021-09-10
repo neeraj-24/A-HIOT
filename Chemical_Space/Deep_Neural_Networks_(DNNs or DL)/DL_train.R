@@ -20,7 +20,7 @@ train[,y] <- as.factor(train[,y])
 test[,y] <- as.factor(test[,y])
 
 #Modelling_DNN
-my_dl_model <- h2o.deeplearning(model_id="dl_model_first", training_frame=train, validation_frame = test, x=predictors, y=y,  nfolds = 10, keep_cross_validation_fold_assignment = TRUE, fold_assignment = "Stratified", activation = "RectifierWithDropout", score_each_iteration = TRUE, hidden = c(200, 300, 200, 2), epochs = 50, variable_importances = TRUE, export_weights_and_biases = TRUE, seed = 42)
+my_dl_model <- h2o.deeplearning(model_id="dl_model_first", training_frame=train, validation_frame = test, x=predictors, y=y,  nfolds = 10, keep_cross_validation_fold_assignment = TRUE, fold_assignment = "Stratified", activation = "Tanh", score_each_iteration = TRUE, hidden = c(200, 300, 200, 2), epochs = 50, variable_importances = TRUE, export_weights_and_biases = TRUE, seed = 42)
 
 h2o.mean_per_class_error(my_dl_model, train = TRUE, valid = TRUE, xval = TRUE)
 
@@ -33,7 +33,7 @@ imp_variables <- h2o.varimp(my_dl_model)
 #Hyper parameterization with Grid Search
 hyper_params <- list(hidden=list(c(200,300),c(300,2)), input_dropout_ratio=c(0,0.05), rate=c(0.01,0.02), rate_annealing=c(1e-10,1e-9,1e-8))
 
-grid <- h2o.grid(algorithm="deeplearning", grid_id="my_dl_grid", training_frame=train, validation_frame = test, x= predictors, y=y, epochs=50, stopping_metric="misclassification", stopping_tolerance=1e-2, stopping_rounds=2, adaptive_rate=F,  momentum_start=0.5,  momentum_stable=0.9, activation=c("RectifierWithDropout"), max_w2=10, hyper_params=hyper_params)
+grid <- h2o.grid(algorithm="deeplearning", grid_id="my_dl_grid", training_frame=train, validation_frame = test, x= predictors, y=y, epochs=50, stopping_metric="misclassification", stopping_tolerance=1e-2, stopping_rounds=2, adaptive_rate=F,  momentum_start=0.5,  momentum_stable=0.9, activation=c("Tanh"), max_w2=10, hyper_params=hyper_params)
 print(grid)
 
 #best model with Hyper-parameters
