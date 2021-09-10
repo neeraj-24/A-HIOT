@@ -2,13 +2,13 @@ require(h2o)
 require(caret)
 h2o.init(nthreads=-1, max_mem_size="16G")
 h2o.removeAll()
-data <- h2o.importFile("/home/user/DNN_RF/pipeline_validation/dud_e/Biological_space/validation_set/validation_pdbqt/validation_vs_output/complex_files_FPs/calculated_fingerprints/final_run_training+validation/training_klekoth.csv")
+data <- h2o.importFile("training_klekoth.csv")
 #data <- data[2:4862]
 print(dim(data))
 splits<- h2o.splitFrame(data, ratios = 0.40, seed = -1)
 train <- splits[[1]]
 test <- splits[[2]]
-h2o.exportFile(test, "/home/user/DNN_RF/pipeline_validation/dud_e/Biological_space/validation_set/validation_pdbqt/validation_vs_output/complex_files_FPs/calculated_fingerprints/final_run_training+validation/DL_klelota_internal_test.csv", header=TRUE)
+h2o.exportFile(test, "DL_klelota_internal_test.csv", header=TRUE)
 train <- train[2:4862]
 test <- test[2:4862]
 train$y <- as.factor(train$y)
@@ -71,5 +71,5 @@ write.csv(file="kelkoth_train_top_20_vars.csv", imp_variables )
 model_training_klekoth <- h2o.saveModel(object = best_model, path = getwd(), force = TRUE)
 
 test_predict <- h2o.predict(object = best_model, newdata = test)
-h2o.exportFile(test_predict, "/home/user/DNN_RF/pipeline_validation/dud_e/Biological_space/validation_set/validation_pdbqt/validation_vs_output/complex_files_FPs/calculated_fingerprints/final_run_training+validation/DL_klekota_predicted_internal_test.csv", header=TRUE)
+h2o.exportFile(test_predict, "DL_klekota_predicted_internal_test.csv", header=TRUE)
 h2o.shutdown()
