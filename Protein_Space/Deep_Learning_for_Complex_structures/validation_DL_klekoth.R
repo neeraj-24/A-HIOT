@@ -4,14 +4,14 @@ h2o.init(nthreads=-1, max_mem_size="16G")
 h2o.removeAll()
 
 #Loading train dataset
-train <- h2o.importFile("/home/user/DNN_RF/pipeline_validation/dud_e/Biological_space/validation_set/validation_pdbqt/validation_vs_output/complex_files_FPs/calculated_fingerprints/final_run_training+validation/training_klekoth.csv")
+train <- h2o.importFile("training_klekoth.csv")
 train <- train[2:4862]
 print(dim(train))
 train$y <- as.factor(train$y)
 print(h2o.levels(train$y))
 
 #Loading test dataset
-test <- h2o.importFile("/home/user/DNN_RF/pipeline_validation/dud_e/Biological_space/validation_set/validation_pdbqt/validation_vs_output/complex_files_FPs/calculated_fingerprints/final_run_training+validation/validation_klekoth.csv")
+test <- h2o.importFile("validation_klekoth.csv")
 test <- test[2:4862]
 print(dim(test))
 test$y <- as.factor(test$y)
@@ -25,7 +25,7 @@ train[,y] <- as.factor(train[,y])
 test[,y] <- as.factor(test[,y])
 
 #Modelling_DNN
-my_dl_model <- h2o.deeplearning(model_id="dl_model_first", training_frame=train, validation_frame = test, x=predictors, y=y,  nfolds = 10, keep_cross_validation_fold_assignment = TRUE, fold_assignment = "Stratified", activation = "Rectifier", score_each_iteration = TRUE, hidden = c(400, 200, 400), epochs = 50, variable_importances = TRUE, export_weights_and_biases = TRUE, ignore_const_cols = FALSE, seed = 42)
+my_dl_model <- h2o.deeplearning(model_id="dl_model_first", training_frame=train, validation_frame = test, x=predictors, y=y,  nfolds = 10, keep_cross_validation_fold_assignment = TRUE, fold_assignment = "Stratified", activation = "Tanh", score_each_iteration = TRUE, hidden = c(1600, 400, 200, 400, 2), epochs = 50, variable_importances = TRUE, export_weights_and_biases = TRUE, ignore_const_cols = FALSE, seed = 42)
 
 h2o.mean_per_class_error(my_dl_model, train = TRUE, valid = TRUE, xval = TRUE)
 
@@ -37,9 +37,9 @@ imp_variables <- head(h2o.varimp(my_dl_model), 20)
 
 #Hyper parameterization with Grid Search
 
-hyper_params <- list(hidden=list(c(100,100),c(200,200,200)), input_dropout_ratio=c(0,0.05), rate=c(0.01,0.02), rate_annealing=c(1e-10,1e-9,1e-8))
+hyper_params <- list(hidden=list(c(1000,100),c(400,200,2)), input_dropout_ratio=c(0,0.05), rate=c(0.01,0.02), rate_annealing=c(1e-10,1e-9,1e-8))
 
-grid <- h2o.grid(algorithm="deeplearning", grid_id="my_dl_grid", training_frame=train, validation_frame = test, x=predictors, y=y, epochs=50, stopping_metric="misclassification", stopping_tolerance=1e-2, stopping_rounds=2, adaptive_rate=F,  momentum_start=0.5,  momentum_stable=0.9, activation=c("Rectifier"), max_w2=10, hyper_params=hyper_params)
+grid <- h2o.grid(algorithm="deeplearning", grid_id="my_dl_grid", training_frame=train, validation_frame = test, x=predictors, y=y, epochs=50, stopping_metric="misclassification", stopping_tolerance=1e-2, stopping_rounds=2, adaptive_rate=F,  momentum_start=0.5,  momentum_stable=0.9, activation=c("Tanh"), max_w2=10, hyper_params=hyper_params)
 
 summary(grid)
 
@@ -79,5 +79,5 @@ model_validation_klekoth <- h2o.saveModel(object = best_model, path = getwd(), f
 
 test_predict <- h2o.predict(object = best_model, newdata = test)
 
-h2o.exportFile(test_predict, "/home/user/DNN_RF/pipeline_validation/dud_e/Biological_space/validation_set/validation_pdbqt/validation_vs_output/complex_files_FPs/calculated_fingerprints/final_run_training+validation/DL_klekota_predicted_independent_test.csv", header=TRUE)
+h2o.exportFile(test_predict, "DL_klekota_predicted_independent_test.csv", header=TRUE)
 h2o.shutdown()
