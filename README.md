@@ -1,12 +1,11 @@
 # A-HIOT
-A-HIOT stands for an advanced virtual screening (VS) framework ˗ automated hit
-identification and optimization tool (A-HIOT) that integrates machine learning (ML) and
-deep neural networks (DNNs), and combines conventional approaches based on the
-chemical space (AI-dependent predictive model derived from standard ligand information
-for respective targets) and protein space (target structure information collection and AI-
-dependent prognostic model extracted from the interaction pattern of target-ligand
-complexes). A-HIOT bridges the long-standing gap between both types of methods (LBVS
-and SBVS).
+The A-HIOT is a futuristic virtual screening (VS) framework ˗ automated hit identification and 
+optimization tool (A-HIOT) comprise of the stacked ensemble, deep learning architectures and combines 
+conventional approaches based on the chemical space (AI-dependent predictive model derived from standard 
+ligand information for respective targets) and protein space (target structure information collection and 
+AI dependent prognostic model extracted from the interaction pattern of target protein-ligand complexes).
+The A-HIOT is a reliable approach for bridging the long42 standing gap between ligand-based and 
+structure-based VS and finding accurate hits for the desired or fixed receptor.
 
 ## Prerequisites
 1. The following standalone packages and tools are required:
